@@ -3,14 +3,16 @@ from .player import Player
 from .matchup import Matchup
 from .constant import STATS_MAP
 
+
 class Team(object):
     '''Teams are part of the league'''
+
     def __init__(self, data, member, roster, schedule, year):
         self.team_id = data['id']
         self.team_abbrev = data['abbrev']
         self.team_name = "%s %s" % (data['location'], data['nickname'])
         self.division_id = data['divisionId']
-        self.division_name = '' # set by caller
+        self.division_name = ''  # set by caller
         self.wins = data['record']['overall']['wins']
         self.losses = data['record']['overall']['losses']
         self.ties = data['record']['overall']['ties']
@@ -20,19 +22,19 @@ class Team(object):
         self.final_standing = data['rankCalculatedFinal']
         self.roster = []
         self.schedule = []
-        
+        self.year = year
+
         if member:
             self.owner = "%s %s" % (member['firstName'],
                                     member['lastName'])
-        if 'logo' in data:    
+        if 'logo' in data:
             self.logo_url = data['logo']
-        
+
         self._fetch_roster(roster)
         self._fetch_schedule(schedule)
-        
+
     def __repr__(self):
         return f'Team({self.team_name})'
-    
 
     def _fetch_roster(self, data):
         '''Fetch teams roster'''
@@ -40,8 +42,7 @@ class Team(object):
         roster = data['entries']
 
         for player in roster:
-            self.roster.append(Player(player))
-
+            self.roster.append(Player(player, self.year))
 
     def _fetch_schedule(self, data):
         '''Fetch schedule and scores for team'''

@@ -22,11 +22,24 @@ class Matchup(object):
                                                self.away_team)
 
     def _fetch_matchup_info(self, data):
+
         '''Fetch info for matchup'''
         self.home_team = data['home']['teamId']
-        self.home_final_score = data['home']['totalPoints']
         self.away_team = data['away']['teamId']
-        self.away_final_score = data['away']['totalPoints']
+
+        self.home_stats = {}
+        self.away_stats= {}
+        if 'cumulativeScore' in data['home'] and 'cumulativeScore' in data['away']:
+            for stat in data['home']['cumulativeScore']['scoreByStat']:
+                stat_name = STATS_MAP[int(stat)]
+                stat_value = data['home']['cumulativeScore']['scoreByStat'][stat]['score']
+                self.home_stats[stat_name] = stat_value
+
+            for stat in data['away']['cumulativeScore']['scoreByStat']:
+                stat_name = STATS_MAP[int(stat)]
+                stat_value = data['away']['cumulativeScore']['scoreByStat'][stat]['score']
+                self.away_stats[stat_name] = stat_value
+
         self.winner = data['winner']
 
         # if stats are available

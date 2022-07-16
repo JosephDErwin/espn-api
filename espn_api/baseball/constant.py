@@ -124,7 +124,7 @@ STATS_MAP = {
     60: 'HLD',
     # 61: '',
     62: 'CG',
-    63: 'QS', # Quality Starts
+    # 63: '',
     # 64: '',
     65: 'NH', # No-hitters
     66: 'PG', # Perfect Games
@@ -148,7 +148,6 @@ STATS_MAP = {
     # 80: ,
     81: 'G', # Games Played
     82: 'K/BB', # Strikeout to Walk Ratio
-    83: 'SVHD', # Saves + Holds
     99: 'STARTER',
 }
 
@@ -162,4 +161,19 @@ ACTIVITY_MAP = {
     'FA': 178,
     'WAIVER': 180,
     'TRADED': 244
+}
+
+BREAKDOWN_MAP = {
+    0: {
+        0: 'Current Year',
+        1: 'Last 7 Days',
+        2: 'Last 15 Days',
+        3: 'Last 30 Days',
+        4: 'All Splits',
+        5: 'Unknown'
+    },
+    1: {
+        0: 'Projected',
+        6: 'Previous Year'
+    }
 }
